@@ -1,0 +1,18 @@
+services:
+  os-CentOS-7.9.2009:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: centos:7.9.2009
+    ports:
+      - "2222:22"  # SSH 포트 포워딩
+      - "8080:80"  # 웹 서버 포트 포워딩 (예: Apache)
+    volumes:
+      - ./data:/data  # 호스트와 컨테이너 간 데이터 공유
+    environment:
+      - TZ=Asia/Seoul  # 시간대 설정
+    command: /start.sh  # SSH 데몬 시작 스크립트 실행
+
+networks:
+  default:
+    driver: bridge
